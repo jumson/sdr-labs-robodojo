@@ -17,6 +17,7 @@ ENV PATH $PATH:${HOME}/.local/bin
 RUN echo $USER ' ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers 
 
 USER root
+RUN DEBIAN_FRONTEND=noninteractive TZ=America/New_York apt-get -y install tzdata
 COPY . ${HOME}
 RUN chown -R ${NB_UID} ${HOME} 
 USER ${NB_USER}
