@@ -7,9 +7,14 @@ ARG NB_USER
 ARG NB_UID
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+
 WORKDIR ${HOME}
 ENV PATH $PATH:${HOME}/.local/bin
-RUN echo '$USER ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers 
+RUN echo $USER ' ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers 
 
 USER root
 COPY . ${HOME}
