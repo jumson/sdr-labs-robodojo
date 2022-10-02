@@ -3,12 +3,13 @@ FROM jupyter/scipy-notebook:8ccdfc1da8d5
 # 
 # doing ROOT stuff
 USER root
-ENV NB_USER jovyan
-ENV NB_UID 1000
+ARG NB_USER
+ARG NB_UID
+ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 ENV PATH $PATH:${HOME}/.local/bin
-RUN echo 'jovyan ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers 
+RUN echo '$USER ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers 
 
 USER root
 COPY . ${HOME}
